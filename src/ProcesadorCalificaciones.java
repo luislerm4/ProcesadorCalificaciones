@@ -14,8 +14,12 @@ public class ProcesadorCalificaciones {
         String linea;
 
         while ((linea = lector.readLine()) != null) {
-            int calificacion = Integer.parseInt(linea.trim());
-            System.out.println(calificacion);
+            try {
+                int calificacion = Integer.parseInt(linea.trim());
+                System.out.println(calificacion);
+            } catch (NumberFormatException e) {
+                System.out.println("Valor inválido: " + linea);
+            }
         }
 
         lector.close();

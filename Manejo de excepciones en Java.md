@@ -136,12 +136,12 @@ catch (NumberFormatException e)
 
 Completar:
 
-| Aspecto | Sin manejo | Con manejo |
-| ----- | ----- | ----- |
-| ¿Termina el programa? |  |  |
-| ¿Se muestra el error? |  |  |
-| ¿Se procesan las líneas posteriores? |  |  |
-| ¿Puede recuperarse el programa? |  |  |
+| Aspecto | Sin manejo                       | Con manejo                                    |
+| ----- |----------------------------------|-----------------------------------------------|
+| ¿Termina el programa? | Si, el programa explota de golpe | No, termina todo el ciclo limpio              |
+| ¿Se muestra el error? | Lanza un strack trace rojo feo   | Muestra un mensaje controlado y limpio        |
+| ¿Se procesan las líneas posteriores? | No, ignora todo lo que sigue     | Si, se brinca el error y procesa lo que falta |
+| ¿Puede recuperarse el programa? | No                               | Si                                            |
 
 ### **Reflexión**
 
