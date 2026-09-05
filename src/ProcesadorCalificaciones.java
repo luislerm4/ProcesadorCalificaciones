@@ -7,12 +7,10 @@ public class ProcesadorCalificaciones {
 
     public static void main(String[] args) {
 
-        try {
-            BufferedReader lector =
-                    new BufferedReader(
-                            new FileReader("calificaciones.txt")
-                    );
+        BufferedReader lector = null;
 
+        try {
+            lector = new BufferedReader(new FileReader("calificaciones.txt"));
             String linea;
 
             while ((linea = lector.readLine()) != null) {
@@ -21,17 +19,21 @@ public class ProcesadorCalificaciones {
                     System.out.println(calificacion);
                 } catch (NumberFormatException e) {
                     System.err.println("Formato numérico inválido: " + e.getMessage());
-                } catch (IllegalArgumentException e) {
-                    System.err.println("Argumento inválido: " + e.getMessage());
                 }
             }
-
-            lector.close();
 
         } catch (FileNotFoundException e) {
             System.err.println("No se encontró el archivo.");
         } catch (IOException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
+            System.err.println("Error de entrada/salida: " + e.getMessage());
+        } finally {
+            if (lector != null) {
+                try {
+                    lector.close();
+                } catch (IOException e) {
+                    System.err.println("No fue posible cerrar el archivo.");
+                }
+            }
         }
     }
 }

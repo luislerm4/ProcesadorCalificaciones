@@ -206,7 +206,7 @@ try {
 ### **Pregunta**
 
 ¿Por qué sería incorrecto invertir el orden anterior?
-
+NumberFormatException es una subclase (hija) de IllegalArgumentException. Si pones la clase general primero, esa atrapa todo y nunca deja pasar nada al bloque de abajo. Java se da cuenta de eso y te da un error de compilación diciendo que el segundo catch es código inalcanzable (unreachable code). Las excepciones específicas van arriba y las generales abajo.
 
 # **Parte IV. `finally`**
 
@@ -256,6 +256,7 @@ Probar:
 * contenido inválido.
 
 ¿En qué situaciones se ejecuta `finally`?
+Se ejecuta siempre, pase lo que pase. No importa si el archivo se leyó completo sin fallos, si saltó un error de formato o si el archivo ni siquiera existía, el código dentro de finally se corre sí o sí al terminar el bloque try-catch.
 
 
 # **Parte V. `try-with-resources`**
