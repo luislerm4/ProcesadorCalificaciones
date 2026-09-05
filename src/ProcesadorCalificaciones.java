@@ -6,13 +6,21 @@ public class ProcesadorCalificaciones {
 
     public static void main(String[] args) {
         try {
-            procesarArchivo("calificaciones.txt");
+            double promedio = procesarArchivo("calificaciones.txt");
+            System.out.println("Promedio final: " + promedio);
+
         } catch (IOException e) {
-            System.err.println("No fue posible procesar el archivo: " + e.getMessage());
+            System.err.println("Error al acceder al archivo: " + e.getMessage());
+        } catch (SinDatosValidosException e) {
+            System.err.println("Error de proceso: " + e.getMessage());
         }
     }
 
-    public static void procesarArchivo(String nombreArchivo) throws IOException {
+    public static double procesarArchivo(String nombreArchivo)
+            throws IOException, SinDatosValidosException {
+
+        int suma = 0;
+        int contadorValidos = 0;
 
         try (BufferedReader lector = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
@@ -22,34 +30,36 @@ public class ProcesadorCalificaciones {
 
                 try {
                     if (lineaLimpia.isEmpty()) {
-                        throw new IllegalArgumentException("La línea no puede estar vacía.");
+                        throw new IllegalArgumentException("La línea está vacía.");
                     }
 
                     int calificacion = Integer.parseInt(lineaLimpia);
-
-                    // Llama a la validación que lanza la excepción personalizada
                     validarCalificacion(calificacion);
 
-                    System.out.println("Calificación válida: " + calificacion);
+                    // Si pasa las validaciones, sumamos
+                    suma += calificacion;
+                    contadorValidos++;
+                    System.out.println("Calificación procesada: " + calificacion);
 
                 } catch (NumberFormatException e) {
-                    System.err.println("Formato numérico inválido: " + lineaLimpia);
+                    System.err.println("Ignorando dato no numérico: " + lineaLimpia);
                 } catch (IllegalArgumentException e) {
-                    System.err.println("Dato inválido: " + e.getMessage());
+                    System.err.println("Ignorando línea inválida: " + e.getMessage());
                 } catch (CalificacionInvalidaException e) {
-                    // Captura de nuestra excepción personalizada
-                    System.err.println("Error en los datos: " + e.getMessage());
+                    System.err.println("Ignorando nota fuera de rango: " + e.getMessage());
                 }
             }
         }
+        if (contadorValidos == 0) {
+            throw new SinDatosValidosException("El archivo no contiene ninguna calificación válida para promediar.");
+        }
+
+        return (double) suma / contadorValidos;
     }
 
-    // Firma con throws CalificacionInvalidaException
     public static void validarCalificacion(int calificacion) throws CalificacionInvalidaException {
         if (calificacion < 0 || calificacion > 100) {
-            throw new CalificacionInvalidaException(
-                    "Calificación fuera de rango: " + calificacion
-            );
+            throw new CalificacionInvalidaException("Valor fuera de rango (0-100): " + calificacion);
         }
     }
 }
