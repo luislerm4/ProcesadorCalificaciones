@@ -696,18 +696,18 @@ Cada estudiante entregar:
 
 # **21\. Preguntas de reflexión**
 
-1. ¿Qué diferencia existe entre lanzar y capturar una excepción?  
-2. ¿Qué función tiene `try`?  
-3. ¿Qué función tiene `catch`?  
-4. ¿Cuándo resulta útil `finally`?  
-5. ¿Qué ventaja tiene `try-with-resources`?  
-6. ¿Cuál es la diferencia entre `throw` y `throws`?  
-7. ¿Por qué conviene utilizar excepciones específicas?  
-8. ¿Cuándo tiene sentido crear una excepción personalizada?  
-9. ¿Por qué no se recomienda capturar `Throwable`?  
-10. ¿Qué efecto tiene ignorar una excepción?  
-11. ¿Qué información debería proporcionar un buen mensaje de excepción?  
-12. ¿En qué casos conviene propagar una excepción en lugar de capturarla inmediatamente?
+1. ¿Qué diferencia existe entre lanzar y capturar una excepción?  lanzar es reportar que ocurrio creando la excepcion y sacandola fuera del flujo normal, capturar es atrapar esa excepcion cuando salta para poder manejarla y asi poder evitar que el programa explote
+2. ¿Qué función tiene `try`?   Envolver el codigo que es propenso a fallar para estar pendientes si salta una excepcion
+3. ¿Qué función tiene `catch`?  Recibir la excepcion si algo falla dentro del bloque try y poder manejarla
+4. ¿Cuándo resulta útil `finally`?  Cuando necesitas ejecutar codigo si o si al final, sin importar si todo salio bien o si salio una excepcion 
+5. ¿Qué ventaja tiene `try-with-resources`?  Cierra automaticamente recursos en cuanto el bloque try termina ahorrando escribir bloques finally gigantes y evitando fugas de memoria 
+6. ¿Cuál es la diferencia entre `throw` y `throws`?  throw Accion de lanzar una excepcion explicitamente en el codigo y Throws Advierte en la firma del metodo para avisar que ese metodo puede arrojar una excepcion y quien lo llame debe hacerse cargo. 
+7. ¿Por qué conviene utilizar excepciones específicas?  Porque te permite saber con precisión qué falló exactamente y responder adecuadamente a cada tipo de problema, en lugar de tratar todos los errores por igual
+8. ¿Cuándo tiene sentido crear una excepción personalizada?  Cuando necesitas representar un error propio de la lógica o reglas de negocio de tu app que Java no tiene contemplado en sus clases por defecto
+9. ¿Por qué no se recomienda capturar `Throwable`?  Porque Throwable también atrapa los Error graves de la máquina virtual, los cuales el programa no puede ni debe intentar reparar
+10. ¿Qué efecto tiene ignorar una excepción?  Deja un "bloque catch vacío", haciendo que el programa continúe corriendo con datos corruptos o incompletos y volviendo casi imposible rastrear dónde estuvo el fallo real
+11. ¿Qué información debería proporcionar un buen mensaje de excepción?  Debe explicar claramente qué pasó, qué dato causó el problema y idealmente qué se esperaba recibir
+12. ¿En qué casos conviene propagar una excepción en lugar de capturarla inmediatamente?Cuando el método actual no tiene la información o la responsabilidad necesaria para solucionar el problema, y es mejor dejar que el método superior (como el main o una interfaz de usuario) decida qué hacer
 
 ---
 
