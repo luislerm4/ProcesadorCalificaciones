@@ -345,12 +345,12 @@ if (linea.isBlank()) {
 
 Cada equipo deberá definir:
 
-| Condición | Excepción | Mensaje |
-| ----- | ----- | ----- |
-| Línea vacía |  |  |
-| Valor no numérico |  |  |
-| Valor \< 0 |  |  |
-| Valor \> 100 |  |  |
+| Condición | Excepción                | Mensaje |
+| ----- |--------------------------| ----- |
+| Línea vacía | IllegalArgumentException | "La línea no puede estar vacía." |
+| Valor no numérico | NumberFormatException                         | "Formato numérico inválido: " + linea |
+| Valor \< 0 |            IllegalArgumentException              |"La calificación debe estar entre 0 y 100: " + calificacion  |
+| Valor \> 100 |    IllegalArgumentException                      |"La calificación debe estar entre 0 y 100: " + calificacion  |
 
 El material recomienda utilizar excepciones lo más específicas posible y evitar declarar genéricamente `throws Exception`.
 
