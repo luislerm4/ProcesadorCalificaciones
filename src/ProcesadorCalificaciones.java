@@ -6,14 +6,12 @@ public class ProcesadorCalificaciones {
 
     public static void main(String[] args) {
         try {
-            // Llama al método que propaga la excepción
             procesarArchivo("calificaciones.txt");
         } catch (IOException e) {
             System.err.println("No fue posible procesar el archivo: " + e.getMessage());
         }
     }
 
-    // Parte VII: throws avisa que este método puede propagar IOException
     public static void procesarArchivo(String nombreArchivo) throws IOException {
 
         try (BufferedReader lector = new BufferedReader(new FileReader(nombreArchivo))) {
@@ -23,14 +21,13 @@ public class ProcesadorCalificaciones {
                 String lineaLimpia = linea.trim();
 
                 try {
-                    // Validar línea vacía con throw
                     if (lineaLimpia.isEmpty()) {
                         throw new IllegalArgumentException("La línea no puede estar vacía.");
                     }
 
                     int calificacion = Integer.parseInt(lineaLimpia);
 
-                    // Validar rango con throw
+                    // Llama a la validación que lanza la excepción personalizada
                     validarCalificacion(calificacion);
 
                     System.out.println("Calificación válida: " + calificacion);
@@ -39,16 +36,19 @@ public class ProcesadorCalificaciones {
                     System.err.println("Formato numérico inválido: " + lineaLimpia);
                 } catch (IllegalArgumentException e) {
                     System.err.println("Dato inválido: " + e.getMessage());
+                } catch (CalificacionInvalidaException e) {
+                    // Captura de nuestra excepción personalizada
+                    System.err.println("Error en los datos: " + e.getMessage());
                 }
             }
         }
     }
 
-    // Parte VI: throw lanza la excepción si no cumple el rango
-    public static void validarCalificacion(int calificacion) {
+    // Firma con throws CalificacionInvalidaException
+    public static void validarCalificacion(int calificacion) throws CalificacionInvalidaException {
         if (calificacion < 0 || calificacion > 100) {
-            throw new IllegalArgumentException(
-                    "La calificación debe estar entre 0 y 100: " + calificacion
+            throw new CalificacionInvalidaException(
+                    "Calificación fuera de rango: " + calificacion
             );
         }
     }
