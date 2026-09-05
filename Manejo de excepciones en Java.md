@@ -293,9 +293,9 @@ try (
 
 Responder:
 
-* ¿Qué código desapareció?  
-* ¿Quién cierra ahora el archivo?  
-* ¿Qué versión resulta más clara?
+* ¿Qué código desapareció?   Desapareció la declaración de BufferedReader lector = null, el bloque finally  y el try-catch anidado que llamaba lector.close().
+* ¿Quién cierra ahora el archivo?  Java lo cierra en automático al salir del bloque try. por la implementacion de AutoClosable
+* ¿Qué versión resulta más clara?La versión con try-with-resources por que tiene menos lineas de codigo y es mas facil de leer
 
 ---
 
