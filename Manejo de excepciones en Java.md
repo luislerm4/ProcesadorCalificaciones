@@ -82,10 +82,10 @@ abc
 
 Registrar:
 
-1. ¿Qué excepción aparece?  
-2. ¿En qué línea ocurre?  
-3. ¿Continúa la ejecución?  
-4. ¿Qué información proporciona el *stack trace*?
+1. ¿Qué excepción aparece?  java.lang.NumberFormatException
+2. ¿En qué línea ocurre?   En la línea 17 de ProcesadorCalificaciones.java
+3. ¿Continúa la ejecución?  No, el programa se detuvo despues de imprimir 85 y 90 y el 75 no se termino de procesar.
+4. ¿Qué información proporciona el *stack trace*? Te dice cual fue el texto que corrompio el codigo y en que linea fue.
 
 El material explica que el objeto excepción contiene información sobre el tipo de error y el estado del programa cuando ocurrió, y que lanzar una excepción consiste en crear ese objeto y pasarlo al runtime.
 
